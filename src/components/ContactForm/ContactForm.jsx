@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import ReactInputMask from "react-input-mask";
 import {useId} from "react";
 import {useDispatch} from "react-redux";
-import {addContact} from "../../redux/contactsOps";
+import {addContact} from "../../redux/contacts/operations";
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
