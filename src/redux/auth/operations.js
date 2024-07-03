@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {goitApi} from "../../config/goitApi";
+import {clearAuthHeader, goitApi, setAuthHeader} from "../../config/goitApi";
 import toast from "react-hot-toast";
 
 export const registerThunk = createAsyncThunk("auth/register", async (credential, thunkAPI) => {
@@ -19,6 +19,19 @@ export const registerThunk = createAsyncThunk("auth/register", async (credential
 export const loginThunk = createAsyncThunk("auth/login", async (credential, thunkAPI) => {
   try {
     const {data} = await goitApi.post("/users/login", credential);
+    toast.success("Welcome!");
+    setAuthHeader(data.token);
+
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const logoutThunk = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+  try {
+    const {data} = await goitApi.post("/users/logout");
+    clearAuthHeader();
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);

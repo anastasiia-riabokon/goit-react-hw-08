@@ -2,7 +2,6 @@ import {Form, Field, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import {registerThunk} from "../../redux/auth/operations";
-import toast from "react-hot-toast";
 
 const RegistrationPage = () => {
   const dispatch = useDispatch();

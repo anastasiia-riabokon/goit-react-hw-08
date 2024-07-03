@@ -6,7 +6,6 @@ import {loginThunk} from "../../redux/auth/operations";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const initialValues = {
-    name: "",
     email: "",
     password: "",
   };
