@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectContacts, selectError, selectLoading} from "../../redux/contacts/selectors";
 import {selectFilteredContacts, selectNameFilter} from "../../redux/filters/selectors";
 import {fetchContacts} from "../../redux/contacts/operations";

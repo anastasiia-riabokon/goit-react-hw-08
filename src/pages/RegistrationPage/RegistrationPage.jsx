@@ -1,4 +1,4 @@
 const RegistrationPage = () => {
-  return <div></div>;
+  return <div>Register</div>;
 };
 export default RegistrationPage;

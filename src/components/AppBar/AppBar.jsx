@@ -4,11 +4,15 @@ import UserMenu from "../UserMenu/UserMenu";
 
 const AppBar = () => {
   return (
-    <div>
-      <Navigation />
-      <AuthNav />
-      <UserMenu />
-    </div>
+    <header>
+      <nav>
+        <ul className="navbar bg-base-100">
+          <Navigation />
+          <AuthNav />
+          <UserMenu />
+        </ul>
+      </nav>
+    </header>
   );
 };
 export default AppBar;
