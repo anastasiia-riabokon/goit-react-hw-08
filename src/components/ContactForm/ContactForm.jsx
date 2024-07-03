@@ -1,9 +1,10 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import * as Yup from "yup";
+
 import ReactInputMask from "react-input-mask";
 import {useId} from "react";
 import {useDispatch} from "react-redux";
 import {addContact} from "../../redux/contacts/operations";
+import {FeedbackSchema} from "../../helpers/FeedbackSchema";
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -27,22 +28,12 @@ export const ContactForm = () => {
     actions.resetForm();
   };
 
-  const FeedbackSchema = Yup.object().shape({
-    nameContact: Yup.string()
-      .min(3, "Too short!")
-      .max(50, "Too long!")
-      .matches(/^[A-Za-z]+$/, "Name must consist only of letters!")
-      .required("Required"),
-
-    numberContact: Yup.string().required("Required"),
-  });
-
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={FeedbackSchema}>
       {({setFieldValue}) => (
         <Form className="flex justify-center gap-2 mb-8">
           <label
-            htmlFor="{idFieldName}"
+            htmlFor={idFieldName}
             className="input input-bordered flex items-center gap-2 max-w-[25%]"
           >
             <span>Name</span>
@@ -55,17 +46,17 @@ export const ContactForm = () => {
           </label>
 
           <label
-            htmlFor="{idFieldNumber}"
+            htmlFor={idFieldNumber}
             className="input input-bordered flex items-center gap-2 max-w-[30%]"
           >
             <span>Number</span>
-            <Field id={idFieldNumber} type="text" name="numberContact" placeholder="123-456-7890">
+            <Field id={idFieldNumber} type="text" name="numberContact" placeholder="123-45-78">
               {({field}) => (
                 <ReactInputMask
                   {...field}
-                  mask="999-999-9999"
+                  mask="999-99-99"
                   maskChar="_"
-                  placeholder="___-___-____"
+                  placeholder="___-__-__"
                   onChange={(e) => setFieldValue("numberContact", e.target.value)}
                 />
               )}
