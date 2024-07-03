@@ -15,6 +15,8 @@ import Notification from "../../components/Notification/Notification";
 import Loader from "../../components/Loader/Loader";
 import EditContactModal from "../../components/EditContactModal/EditContactModal";
 
+import NotificationDelete from "../../components/NotificationDelete/NotificationDelete";
+
 const ContactsPage = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectNameFilter);
@@ -23,6 +25,8 @@ const ContactsPage = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenWindow, setIsOpenWindow] = useState(false);
+  const [deleteContactId, setDeleteContactId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -31,6 +35,11 @@ const ContactsPage = () => {
   const handleOpenModal = (contact) => {
     dispatch(setCurrentContact(contact));
     setIsOpen(true);
+  };
+
+  const handleDeleteContact = (id) => {
+    setDeleteContactId(id);
+    setIsOpenWindow(true);
   };
 
   return (
@@ -42,7 +51,11 @@ const ContactsPage = () => {
           <SearchBox />
           {isLoading && <Loader />}
           {!isLoading && !isError && filteredContacts.length !== 0 && (
-            <ContactList users={filteredContacts} openModal={handleOpenModal} />
+            <ContactList
+              users={filteredContacts}
+              openModal={handleOpenModal}
+              questionDelete={handleDeleteContact}
+            />
           )}
           {filteredContacts.length === 0 && contacts.length !== 0 && (
             <Notification text={`No contact found ${filter}`} />
@@ -52,6 +65,11 @@ const ContactsPage = () => {
         </Container>
       </Section>
       <EditContactModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <NotificationDelete
+        isOpenWindow={isOpenWindow}
+        onClose={() => setIsOpenWindow(false)}
+        id={deleteContactId}
+      />
     </>
   );
 };
