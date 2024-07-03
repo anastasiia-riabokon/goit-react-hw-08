@@ -12,6 +12,15 @@ export const registerThunk = createAsyncThunk("auth/register", async (credential
     if (error.response && error.response.data && error.response.data.code === 11000) {
       return toast.error("An account with this email already exists.");
     }
-    return rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const loginThunk = createAsyncThunk("auth/login", async (credential, thunkAPI) => {
+  try {
+    const {data} = await goitApi.post("/users/login", credential);
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
