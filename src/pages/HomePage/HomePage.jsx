@@ -16,7 +16,7 @@ const HomePage = () => {
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold">Hello {user.name}</h1>
           <p className="mb-5">Keep all your important contacts organized and easily accessible.</p>
-          <Link to="/contacts" className="btn btn-outline">
+          <Link to="/login" className="btn btn-outline">
             Get Started
           </Link>
         </div>
