@@ -1,24 +1,31 @@
 import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {setTheme} from "../../redux/theme/slice";
+import {selectTheme} from "../../redux/theme/selectors";
 
 const Theme = () => {
-  const [theme, setTheme] = useState("wireframe");
+  const dispatch = useDispatch();
+  const theme = useSelector(selectTheme);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    // localStorage.setItem("theme", theme);
+    console.log(theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "wireframe" ? "forest" : "wireframe"));
+    dispatch(setTheme(theme === "wireframe" ? "forest" : "wireframe"));
   };
+
   return (
     <div>
-      <label className="swap swap-rotate" onClick={toggleTheme}>
+      <label className="swap swap-rotate">
         {/* this hidden checkbox controls the state */}
         <input type="checkbox" className="theme-controller" value="synthwave" />
 
         {/* sun icon */}
         <svg
-          className="swap-off h-10 w-10 fill-current"
+          className={`swap-off h-10 w-10 fill-current ${theme !== "wireframe" ? "hidden" : ""}`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           onClick={toggleTheme}
@@ -28,7 +35,7 @@ const Theme = () => {
 
         {/* moon icon */}
         <svg
-          className="swap-on h-10 w-10 fill-current"
+          className={`swap-on h-10 w-10 fill-current ${theme !== "forest" ? "hidden" : ""}`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           onClick={toggleTheme}
