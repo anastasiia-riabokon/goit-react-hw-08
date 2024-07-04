@@ -6,6 +6,10 @@ input {
   @apply w-full;
 }
 
+.field {
+  @apply input input-bordered;
+}
+
 .btn {
   @apply duration-[800ms];
 }

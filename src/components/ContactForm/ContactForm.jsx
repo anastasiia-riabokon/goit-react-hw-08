@@ -1,11 +1,12 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
-
 import ReactInputMask from "react-input-mask";
 import {useId} from "react";
 import {useDispatch} from "react-redux";
 import {addContact} from "../../redux/contacts/operations";
 import {FeedbackSchema} from "../../helpers/FeedbackSchema";
 import {nanoid} from "@reduxjs/toolkit";
+import NumberField from "../Fields/NumberField";
+import NameField from "../Fields/NameField";
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -13,15 +14,15 @@ export const ContactForm = () => {
   const idFieldNumber = useId();
 
   const initialValues = {
-    nameContact: "",
-    numberContact: "",
+    name: "",
+    number: "",
   };
 
   const handleSubmit = (values, actions) => {
     const action = addContact({
       id: nanoid(),
-      name: values.nameContact,
-      number: values.numberContact,
+      name: values.name,
+      number: values.number,
     });
 
     dispatch(action);
@@ -32,40 +33,24 @@ export const ContactForm = () => {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={FeedbackSchema}>
       {({setFieldValue}) => (
-        <Form className="flex justify-center gap-2 mb-8 max-[767px]:flex-wrap">
+        <Form className="flex justify-center gap-2 mb-8 max-[767px]:flex-wrap max-[767px]:gap-8">
           <label
             htmlFor={idFieldName}
-            className="input input-bordered flex items-center gap-2 min-[768px]:max-w-[25%] max-[767px]:w-full"
+            className="field flex items-center gap-2 min-[768px]:max-w-[25%] max-[767px]:w-full"
           >
             <span>Name</span>
-            <Field id={idFieldName} type="text" name="nameContact" placeholder="John" />
-            <ErrorMessage
-              name="nameContact"
-              component="div"
-              className="absolute transform translate-y-[34px] text-[14px] italic text-red-500"
-            />
+            <NameField id={idFieldName} classNameError="translate-y-[34px]" />
           </label>
 
           <label
             htmlFor={idFieldNumber}
-            className="input input-bordered flex items-center gap-2 min-[768px]:max-w-[30%] max-[767px]:w-full"
+            className="field flex items-center gap-2 min-[768px]:max-w-[30%] max-[767px]:w-full"
           >
             <span>Number</span>
-            <Field id={idFieldNumber} type="text" name="numberContact" placeholder="123-45-78">
-              {({field}) => (
-                <ReactInputMask
-                  {...field}
-                  mask="999-99-99"
-                  maskChar="_"
-                  placeholder="___-__-__"
-                  onChange={(e) => setFieldValue("numberContact", e.target.value)}
-                />
-              )}
-            </Field>
-            <ErrorMessage
-              name="numberContact"
-              component="div"
-              className="absolute transform translate-y-[34px] text-[14px] italic text-red-500"
+            <NumberField
+              id={idFieldNumber}
+              setFieldValue={setFieldValue}
+              classNameError="translate-y-[34px]"
             />
           </label>
 
@@ -77,4 +62,5 @@ export const ContactForm = () => {
     </Formik>
   );
 };
+
 export default ContactForm;
