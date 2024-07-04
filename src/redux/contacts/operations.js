@@ -36,6 +36,7 @@ export const editContact = createAsyncThunk(
   async ({id, ...contact}, thunkAPI) => {
     try {
       const {data} = await goitApi.patch(`/contacts/${id}`, contact);
+      toast.success("Contact was successfully edited!");
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
