@@ -5,3 +5,7 @@
 input {
   @apply w-full;
 }
+
+.btn {
+  @apply duration-[800ms];
+}
