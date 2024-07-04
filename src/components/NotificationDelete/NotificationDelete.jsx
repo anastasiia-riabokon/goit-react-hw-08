@@ -9,7 +9,6 @@ const NotificationDelete = ({isOpenWindow, onClose, id}) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    console.log(id);
     dispatch(deleteContact(id));
     onClose();
   };
