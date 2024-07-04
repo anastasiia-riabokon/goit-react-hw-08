@@ -20,11 +20,11 @@ const UserMenu = () => {
         </button>
       </li>
 
-      <li className="text-[18px] min-[768px]:hidden mr-7">
+      <li className="text-[18px] min-[768px]:hidden">
         <p>{user.email}</p>
       </li>
 
-      <li className=" min-[768px]:hidden">
+      <li className="navbar-end min-[768px]:hidden">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="">
             <svg
