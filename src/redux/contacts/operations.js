@@ -14,7 +14,6 @@ export const fetchContacts = createAsyncThunk("contacts/FetchAll", async (_, thu
 export const addContact = createAsyncThunk("contacts/addContact", async (contact, thunkAPI) => {
   try {
     const {data} = await goitApi.post("/contacts", contact);
-    toast.success("Contact was successfully added!");
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);

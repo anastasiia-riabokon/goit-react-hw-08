@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {addContact, deleteContact, editContact, fetchContacts} from "./operations";
 import {logoutThunk} from "../auth/operations";
+import toast from "react-hot-toast";
 
 const initialState = {
   items: [],
@@ -23,7 +24,13 @@ const slice = createSlice({
         state.items = action.payload;
       })
       .addCase(addContact.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+        const existingContact = state.items.find((item) => item.number === action.payload.number);
+        if (!existingContact) {
+          state.items.push(action.payload);
+          toast.success("Contact was successfully added!");
+        } else {
+          toast.error("This contact already exists!");
+        }
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter((item) => item.id !== action.payload);
