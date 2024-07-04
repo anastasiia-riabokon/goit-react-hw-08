@@ -3,7 +3,7 @@ import Contact from "../Contact/Contact";
 export const ContactList = ({users, openModal, questionDelete}) => {
   return (
     <>
-      <ul className="flex flex-col gap-2 max-h-[350px] overflow-auto px-3">
+      <ul className="flex flex-col gap-2 max-h-[350px] max-[767px]:max-h-[175px] overflow-auto px-3">
         {users.map((user) => (
           <li key={user.id} className="flex items-center justify-between border-b py-1">
             <Contact

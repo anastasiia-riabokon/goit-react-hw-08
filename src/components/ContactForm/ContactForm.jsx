@@ -5,6 +5,7 @@ import {useId} from "react";
 import {useDispatch} from "react-redux";
 import {addContact} from "../../redux/contacts/operations";
 import {FeedbackSchema} from "../../helpers/FeedbackSchema";
+import {nanoid} from "@reduxjs/toolkit";
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export const ContactForm = () => {
 
   const handleSubmit = (values, actions) => {
     const action = addContact({
-      id: crypto.randomUUID(),
+      id: nanoid(),
       name: values.nameContact,
       number: values.numberContact,
     });
@@ -31,10 +32,10 @@ export const ContactForm = () => {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={FeedbackSchema}>
       {({setFieldValue}) => (
-        <Form className="flex justify-center gap-2 mb-8">
+        <Form className="flex justify-center gap-2 mb-8 max-[767px]:flex-wrap">
           <label
             htmlFor={idFieldName}
-            className="input input-bordered flex items-center gap-2 max-w-[25%]"
+            className="input input-bordered flex items-center gap-2 min-[768px]:max-w-[25%] max-[767px]:w-full"
           >
             <span>Name</span>
             <Field id={idFieldName} type="text" name="nameContact" placeholder="John" />
@@ -47,7 +48,7 @@ export const ContactForm = () => {
 
           <label
             htmlFor={idFieldNumber}
-            className="input input-bordered flex items-center gap-2 max-w-[30%]"
+            className="input input-bordered flex items-center gap-2 min-[768px]:max-w-[30%] max-[767px]:w-full"
           >
             <span>Number</span>
             <Field id={idFieldNumber} type="text" name="numberContact" placeholder="123-45-78">
@@ -68,7 +69,7 @@ export const ContactForm = () => {
             />
           </label>
 
-          <button type="submit" className="btn btn-outline">
+          <button type="submit" className="btn btn-outline max-[767px]:w-full">
             Add contact
           </button>
         </Form>
