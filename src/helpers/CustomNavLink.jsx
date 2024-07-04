@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 const CustomNavLink = ({to, children}) => {
   const buildLinkClass = ({isActive}) => {
-    return clsx("hover:text-red-600", isActive && "text-red-600");
+    return clsx("hover:text-red-600 max-[767px]:text-[18px]", isActive && "text-red-600");
   };
 
   return (

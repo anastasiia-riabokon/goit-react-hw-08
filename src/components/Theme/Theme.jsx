@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setTheme} from "../../redux/theme/slice";
 import {selectTheme} from "../../redux/theme/selectors";
@@ -9,8 +9,6 @@ const Theme = () => {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    // localStorage.setItem("theme", theme);
-    console.log(theme);
   }, [theme]);
 
   const toggleTheme = () => {
@@ -19,7 +17,7 @@ const Theme = () => {
 
   return (
     <div>
-      <label className="swap swap-rotate">
+      <label className="swap swap-rotate grid place-items-center">
         {/* this hidden checkbox controls the state */}
         <input type="checkbox" className="theme-controller" value="synthwave" />
 
