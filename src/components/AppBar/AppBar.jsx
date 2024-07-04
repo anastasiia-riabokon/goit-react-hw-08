@@ -9,7 +9,7 @@ const AppBar = () => {
   return (
     <header>
       <nav>
-        <ul className="navbar bg-base-100">
+        <ul className="navbar bg-base-100 max-w-[1024px] mx-auto">
           <Navigation />
           {!isLoggedIn ? <AuthNav /> : <UserMenu />}
         </ul>
