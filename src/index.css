@@ -13,3 +13,7 @@ input {
 .btn {
   @apply duration-[800ms];
 }
+
+body {
+  @apply overflow-hidden;
+}
