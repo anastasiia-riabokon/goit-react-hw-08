@@ -5,7 +5,6 @@ import {lazy, useEffect} from "react";
 import {refreshThunk} from "../redux/auth/operations";
 import {selectIsRefreshing} from "../redux/auth/selectors";
 
-import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
 import PrivateRoute from "../routes/PrivateRoute";
 import RestrictedRoute from "../routes/RestrictedRoute";
 import Loader from "./Loader/Loader";
@@ -15,6 +14,7 @@ import Layout from "./Layout/Layout";
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const ContactsPage = lazy(() => import("../pages/ContactsPage/ContactsPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage/LoginPage"));
+const RegistrationPage = lazy(() => import("../pages/RegistrationPage/RegistrationPage"));
 
 function App() {
   const dispatch = useDispatch();
