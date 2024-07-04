@@ -1,25 +1,27 @@
 import Modal from "react-modal";
 import {useDispatch, useSelector} from "react-redux";
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import {Form, Formik} from "formik";
 import {selectCurrentContact} from "../../redux/contacts/selectors";
 import {editContact} from "../../redux/contacts/operations";
 import {FeedbackSchema} from "../../helpers/FeedbackSchema";
-import ReactInputMask from "react-input-mask";
-import {setCurrentContact} from "../../redux/contacts/slice";
 import {GrClose} from "react-icons/gr";
 import {customStyles} from "../../helpers/customStyleForModal";
 import {motion, AnimatePresence} from "framer-motion";
 import {modalVariants} from "../../helpers/paramsAnimationModal";
+import NameField from "../Fields/NameField";
+import NumberField from "../Fields/NumberField";
+import {useId} from "react";
 
 Modal.setAppElement("#root");
 
 const EditContactModal = ({isOpen, onClose}) => {
   const currentContact = useSelector(selectCurrentContact);
   const dispatch = useDispatch();
+  const idFieldName = useId();
+  const idFieldNumber = useId();
 
   const handleSubmitModal = (values) => {
     const updContact = {id: currentContact.id, ...values};
-    console.log(updContact.id);
     dispatch(editContact(updContact));
     onClose();
   };
@@ -42,44 +44,35 @@ const EditContactModal = ({isOpen, onClose}) => {
               <h1 className="text-center mb-4 text-lg font-bold">Edit Contact</h1>
               <Formik
                 initialValues={{
-                  nameContact: currentContact.name,
-                  numberContact: currentContact.number,
+                  name: currentContact.name,
+                  number: currentContact.number,
                 }}
                 onSubmit={handleSubmitModal}
                 validationSchema={FeedbackSchema}
               >
                 {({setFieldValue}) => {
                   return (
-                    <Form className="flex flex-col gap-3">
+                    <Form className="flex flex-col gap-6">
                       <div>
-                        <label htmlFor="name" className="px-4 text-xs">
+                        <label htmlFor={idFieldName} className="px-4 text-xs">
                           Name
                         </label>
-                        <Field
-                          id="name"
-                          name="nameContact"
-                          type="text"
-                          className="input input-bordered"
+                        <NameField
+                          id={idFieldName}
+                          classNameInput="field"
+                          classNameError="px-[16px]"
                         />
-                        <ErrorMessage name="name" component="div" />
                       </div>
                       <div>
-                        <label htmlFor="number" className="px-4 text-xs">
+                        <label htmlFor={idFieldNumber} className="px-4 text-xs">
                           Number
                         </label>
-                        <Field name="numberContact">
-                          {({field}) => (
-                            <ReactInputMask
-                              {...field}
-                              mask="999-99-99"
-                              maskChar="_"
-                              placeholder="___-__-__"
-                              onChange={(e) => setFieldValue("number", e.target.value)}
-                              className="input input-bordered"
-                            />
-                          )}
-                        </Field>
-                        <ErrorMessage name="number" component="div" />
+                        <NumberField
+                          id={idFieldNumber}
+                          setFieldValue={setFieldValue}
+                          classNameInput="field"
+                          classNameError="px-[16px]"
+                        />
                       </div>
                       <button type="submit" className="btn btn-outline">
                         Save

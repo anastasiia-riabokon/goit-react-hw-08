@@ -31,12 +31,15 @@ export const deleteContact = createAsyncThunk("contacts/deleteContact", async (i
   }
 });
 
-export const editContact = createAsyncThunk("contacts/editContact", async (contact, thunkAPI) => {
-  console.log(contact.id);
-  try {
-    const {data} = await goitApi.patch(`/contacts/${contact.id}`, contact);
-    return data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+export const editContact = createAsyncThunk(
+  "contacts/editContact",
+  async ({id, ...contact}, thunkAPI) => {
+    console.log(id);
+    try {
+      const {data} = await goitApi.patch(`/contacts/${id}`, contact);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-});
+);
