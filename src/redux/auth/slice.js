@@ -31,7 +31,7 @@ const slice = createSlice({
           name: null,
           email: null,
         };
-        state.token = "";
+        state.token = null;
         state.isLoggedIn = false;
         state.isRefreshing = false;
       })

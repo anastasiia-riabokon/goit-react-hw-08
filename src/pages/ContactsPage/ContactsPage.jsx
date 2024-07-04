@@ -61,6 +61,12 @@ const ContactsPage = () => {
             <Notification text={`No contact found ${filter}`} />
           )}
 
+          {contacts.length === 0 && !isLoading && !isError ? (
+            <Notification text={"Add your first contact!"} />
+          ) : (
+            ""
+          )}
+
           {isError && <Notification text={"Woops! Something went wrong😰"} />}
         </Container>
       </Section>
